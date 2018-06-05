@@ -15,6 +15,7 @@ import Scheduler
 from pydispatch import dispatcher
 from EventType import EventType
 import Database
+from QuestionnaireType import QuestionnaireType
 
 class Model():
     """ Class including the main data and their operations of the multimedia exposure meter app
@@ -80,6 +81,8 @@ class Model():
         """
         Sensors are stopped to listening the ports
         """
+        dispatcher.send(EventType.PlayAudioAndOpenQuestSignal, EventType.PlayAudioAndOpenQuestSender, "media/postQuestionnaire.ogg", "Post Questionnaire", QuestionnaireType.PostQuest, "questionnaire/post_questions.csv")
+            
         dispatcher.send(EventType.PrintMessageSignal, EventType.PrintMessageSender, "The session is going to be stopped.")
         
         self.tobiiEyeTracker.stopListening()

@@ -34,7 +34,8 @@ class MainPanel():
         self.userNameLabel = Tk.Label(self.frame4, text="User Name:")
         self.userNameLabel.pack(side=Tk.LEFT)
         self.userNameEntry = Tk.Entry(self.frame4, width=11, textvariable=self.userNameVar)
-        self.userNameEntry.pack(side=Tk.RIGHT)     
+        self.userNameEntry.pack(side=Tk.RIGHT)
+        self.userNameEntry.focus()
    
         
 class SidePanel():
