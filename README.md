@@ -1,3 +1,6 @@
+- If you are just going to use the exposure meter, just bother with config.ini file and ActionUnits.py file
+- If you are goning to add new sensor then you may want to look at Model.py, Sensor.py-> see the below details:
+ "#Adding a new sensor class" and "Initialize new sensor" parts
 
 #Installed packages------------
 -Note that I installed them via conda install scripts,
