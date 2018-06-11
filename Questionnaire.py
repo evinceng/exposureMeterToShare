@@ -14,12 +14,11 @@ In DBCollectionName every move of the user is saved to DB, like forwarding comin
 In FinalAnswersCollectionName the final answers to the questions are stored for easy using later for analysis
 """
 from Tkinter import *
-from tkinter import ttk
+import ttk
 from datetime import datetime
 from csvReader import csvReader
 from collections import OrderedDict
 import Database
-from QuestionnaireType import QuestionnaireType
 from itertools import groupby,izip
 
 class Questionnaire:

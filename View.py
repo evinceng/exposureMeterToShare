@@ -47,5 +47,7 @@ class SidePanel():
         self.frame3.pack(side=Tk.RIGHT, fill=Tk.BOTH, expand=1)
         self.startButton = Tk.Button(self.frame3, text="Start", state="disabled")
         self.startButton.pack(side="top",fill=Tk.BOTH)
+        self.nextButton = Tk.Button(self.frame3, text="Next", state="disabled")
+        self.nextButton.pack(side="top",fill=Tk.BOTH)
         self.stopButton = Tk.Button(self.frame3, text="Stop", state="disabled")
         self.stopButton.pack(side="top",fill=Tk.BOTH)

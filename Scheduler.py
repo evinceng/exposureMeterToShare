@@ -83,6 +83,7 @@ class Scheduler:
             handler.close()
             self.logger.removeHandler(handler)
         logging.shutdown()
+        print "Schedular is stopped!"
         
       
 #    def printLeftEyeGaze(self, sender, eyeGaze):

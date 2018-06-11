@@ -86,9 +86,13 @@ class Model():
         dispatcher.send(EventType.PrintMessageSignal, EventType.PrintMessageSender, "The session is going to be stopped.")
         
         self.tobiiEyeTracker.stopListening()
-        ################################################################################
-        #Stop the scheduler here
-        ################################################################################
+        
+        
+        
+    def stopScheduler(self):
+        """
+        Stops scheduler, It should be called after messagebox is showed to user before are you sure to exit.
+        """
         self.scheduler.stopScheduler()
         
 #    def assignEventHandlers(self):

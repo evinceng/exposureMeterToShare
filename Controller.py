@@ -9,7 +9,7 @@ Created on Wed Apr 04 13:13:48 2018
 import Model
 import View
 import Tkinter as Tk
-from tkinter import messagebox
+import tkMessageBox
 import bottle
 import EnableCors
 import threading
@@ -35,6 +35,7 @@ class Controller():
         self.model=Model.Model()
         self.view=View.View(self.root)
         self.view.sidePanel.startButton.bind("<Button>",self.start)
+        self.view.sidePanel.nextButton.bind("<Button>",self.nextPressed)
         self.view.sidePanel.stopButton.bind("<Button>",self.stop)
         self.view.mainPanel.userNameVar.trace("w", self.updateStartButtonState)
         self.root.after(2000, self.root.focus_force)
@@ -63,6 +64,7 @@ class Controller():
         if self.view.sidePanel.startButton["state"] == "normal":
             self.view.sidePanel.startButton.config(state="disabled")
             self.view.sidePanel.stopButton.config(state="normal")
+            #self.view.sidePanel.nextButton.config(state="normal")
             self.model.start(self.view.mainPanel.userNameVar.get())
         
     def stop(self,event):
@@ -75,21 +77,25 @@ class Controller():
                 self.view.sidePanel.startButton.config(state="normal")
                 
             self.view.sidePanel.stopButton.config(state="disabled")
+            self.view.sidePanel.nextButton.config(state="disabled")
             self.model.stop()
         
-        
+    def nextPressed(self, event):
+        print "Next button pressed"
+    
     def onClosing(self):
         """
         A message box is showed to the user before closing the window and model is signaled
         to stop listening the sensors and bottle server is stooped and window is destroyed
         """
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
             #if the button stop is already pushed don't call stop method again
             state = str(self.view.sidePanel.stopButton["state"])
             if state == "normal":
                 self.model.stop()
             self.server.stop()
             self.root.destroy()
+            self.model.stopScheduler()
             
     def initializeBottleServer(self):
         """
@@ -116,6 +122,7 @@ class Controller():
             self.view.sidePanel.startButton.config(state="normal")
         else:
             self.view.sidePanel.startButton.config(state="disabled")
+        self.view.mainPanel.userNameEntry.focus_set()
     
     def openQuestionnaire(self, questTitle, questType, questFileName):
         """
