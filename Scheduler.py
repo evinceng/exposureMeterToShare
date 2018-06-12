@@ -10,9 +10,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import os, sys
 import logging
 from pydispatch import dispatcher
-from EventType import EventType
-from collections import OrderedDict
 import ActionUnit
+import SchedulerHelperMethods
 
 class Scheduler:
     """
@@ -27,6 +26,7 @@ class Scheduler:
         
         #self.readActionUnit("actionUnit.txt")
         self.scheduler = BackgroundScheduler()
+        SchedulerHelperMethods.scheduler = self.scheduler
         
     def initLogger(self):
         self.logger = logging.getLogger('apscheduler.executors.default')

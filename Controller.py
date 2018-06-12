@@ -18,6 +18,7 @@ import config
 from pydispatch import dispatcher
 import SchedulerHelperMethods
 from EventType import EventType
+from ActionType import ActionType
 
 class Controller():
     """Class establishing communication between user interface(view) and model.
@@ -137,9 +138,9 @@ class Controller():
         """
         After OpenQuestSignal received and ping event generated, event is catched here and opened as a pop up window
         """
-        SchedulerHelperMethods.openQuestionnaire(self.root, self.questTitle, self.questType, self.questFileName)
+        SchedulerHelperMethods.openQuestionnaire(ActionType.QuestionnaireActionUnit, self.root, self.questTitle, self.questType, self.questFileName)
         
-    def playAudioAndOpenQuestionnaire(self, audioFileName, questTitlePAO, questTypePAO, questFileNamePAO):
+    def playAudioAndOpenQuestionnaire(self, actionType, audioFileName, questTitlePAO, questTypePAO, questFileNamePAO):
         """
         Receives playAudioAndopenquestionnaire event and generates ping event for playing sound and tkinter to be able to  pop up questionnaire window
         """
@@ -147,13 +148,14 @@ class Controller():
         self.questTypePAO = questTypePAO
         self.questFileNamePAO = questFileNamePAO
         self.audioFileName = audioFileName
+        self.actionTypePAO = actionType
         self.root.event_generate('<<pingPlayAudioAndOpenQuestionnaire>>', when='tail')
         
     def pingPlayAudioAndOpenQuestionnaire(self, event):
         """
         After PlaySoundAndOpenQuestSignal received and ping event generated, event is catched here SchedulerHelperMethods method is called
         """
-        SchedulerHelperMethods.playSoundAndOpenQuestionnaire(self.audioFileName, self.questTitlePAO, self.questTypePAO, self.questFileNamePAO)
+        SchedulerHelperMethods.playSoundAndOpenQuestionnaire(self.actionTypePAO, self.audioFileName, self.questTitlePAO, self.questTypePAO, self.questFileNamePAO)
 
         
         

@@ -5,13 +5,19 @@ Created on Thu May 24 14:57:45 2018
 @author: evin
 """
 import os 
-import datetime
+from datetime import datetime
 from pydispatch import dispatcher
 from EventType import EventType
 import logging 
 import Questionnaire
 from pygame import mixer # Load the required library
+import inspect
+import Database
+from collections import OrderedDict
 
+scheduler = None
+actionUnitConfigSection = "ACTIONUNIT"
+    
 def getAbsPath(fileName):
     """
     returns absolute path of a given fileName
@@ -28,31 +34,58 @@ def playSound(fileName):
     mixer.init()
     mixer.music.load(filePath)
     mixer.music.play()
-    logMessage("Sound file named : %s played at %s" % (filePath, str(datetime.datetime.now())))
+    logMessage("Sound file named : %s played at %s" % (filePath, str(datetime.now())))
 
-def printMessage(message):
+def printMessage(actionType, message):
+    """
+    Calls printMessageAction method via scheduler and saves action unit details to DB
+    """
+    try:
+        argumentsArray = [message]
+        currentFunctionName = inspect.currentframe().f_code.co_name
+        currentTime = datetime.now()
+        scheduler.add_job(printMessageAction, args=argumentsArray)#possible to give the function moduleName:functionName
+        #printMessageAction(message)
+        saveActionUnitToDB(actionType, currentTime, currentFunctionName, argumentsArray)
+    except Exception,e:
+        print e.message
+
+def printMessageAction(message):
     print "::::::::::::::::::::::::::::::::::"
     print "Message is ", message
     print "::::::::::::::::::::::::::::::::::"
 
-def openQuestionnaire(masterFrame, title, questType, questionFileName):
+def openQuestionnaire(actionType, masterFrame, title, questType, questionFileName):
     """
     open the questionnaire window with params 
     """
     filePath = getAbsPath(questionFileName)
     questionnaire = Questionnaire.Questionnaire(masterFrame, title, questType, filePath)
     questionnaire.run()
-    logMessage("Questionnaire file named : %s opened at %s" % (questionFileName, str(datetime.datetime.now())))
+    logMessage("Questionnaire file named : %s opened at %s" % (questionFileName, str(datetime.now())))
         
-def playSoundAndOpenQuestionnaire(soundFileName, questTitle, questType, questFileName):
+def playSoundAndOpenQuestionnaire(actionType, soundFileName, questTitle, questType, questFileName):
+    """
+    Calls playSoundAndOpenQuestionnaireAction method via scheduler and saves action unit details to DB
+    """
+    try:
+        argumentsArray = [soundFileName, questTitle, questType, questFileName]
+        currentFunctionName = inspect.currentframe().f_code.co_name
+        currentTime = datetime.now()
+        scheduler.add_job(playSoundAndOpenQuestionnaireAction, args=argumentsArray)#possible to give the function moduleName:functionName
+        saveActionUnitToDB(actionType, currentTime, currentFunctionName, argumentsArray)
+    except Exception,e:
+        print e.message
+    
+def playSoundAndOpenQuestionnaireAction(soundFileName, questTitle, questType, questFileName):
     """
     Sound is played and dispatcher send the signal to open the questionnaire
     """
     playSound(soundFileName)
     #move this line to whenever you want to open popup window
     dispatcher.send(EventType.OpenQuestSignal, EventType.OpenQuestSender, questTitle, questType, questFileName)
-    logMessage("Open questionnaire  %s event sent: %s" % (questFileName, str(datetime.datetime.now())))
-
+    logMessage("Open questionnaire  %s event sent: %s" % (questFileName, str(datetime.now())))
+    
 def logMessage(message):
     """
     Appends the message to the scheduler default logger
@@ -60,7 +93,18 @@ def logMessage(message):
     logger = logging.getLogger('apscheduler.executors.default')
     if logger:
         logger.info(message)
+
         
+def saveActionUnitToDB(actionType, currentTime, currentFunctionName, argumentsArray):
+        """
+        Creates an ordereddict from the given data and saves them to DB with user information(which is included in Database module)
+        """
+        dataArr = []
+        dataArr.append(("timeStamp", currentTime))
+        dataArr.append(("function", currentFunctionName))
+        dataArr.append(("actionType", actionType))
+        dataArr.append(("args", argumentsArray))
+        Database.saveToDB(actionUnitConfigSection, OrderedDict(dataArr))      
         
 #import tkinter as Tk
 #def popupWindow(frame):
