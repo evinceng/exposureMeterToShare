@@ -1,0 +1,25 @@
+Session start time is 2018-06-12 14:55:08.570000
+Scheduler started at 2018-06-12 14:55:08.614000
+Running job "playSoundAndOpenQuestionnaire (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" (scheduled at 2018-06-12 14:55:09.070000+02:00)
+Running job "playSoundAndOpenQuestionnaireAction (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" (scheduled at 2018-06-12 14:55:09.075000+02:00)
+Running job "printMessage (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" (scheduled at 2018-06-12 14:55:09.570000+02:00)
+Sound file named : C:\Users\evin\Documents\GitHub\mvc\media/preQuestionnaire.ogg played at 2018-06-12 14:55:10.330000
+Open questionnaire  questionnaire/pre_questions.csv event sent: 2018-06-12 14:55:10.333000
+Job "playSoundAndOpenQuestionnaireAction (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" executed successfully
+Running job "printMessageAction (trigger: date[2018-06-12 14:55:10 CEST], next run at: 2018-06-12 14:55:10 CEST)" (scheduled at 2018-06-12 14:55:10.332000+02:00)
+Job "printMessageAction (trigger: date[2018-06-12 14:55:10 CEST], next run at: 2018-06-12 14:55:10 CEST)" executed successfully
+Questionnaire file named : questionnaire/pre_questions.csv opened at 2018-06-12 14:55:10.383000
+Job "printMessage (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" executed successfully
+Job "playSoundAndOpenQuestionnaire (trigger: date[2018-06-12 14:55:09 CEST], next run at: 2018-06-12 14:55:09 CEST)" executed successfully
+Running job "printMessage (trigger: date[2018-06-12 14:55:11 CEST], next run at: 2018-06-12 14:55:11 CEST)" (scheduled at 2018-06-12 14:55:11.570000+02:00)
+Running job "printMessageAction (trigger: date[2018-06-12 14:55:11 CEST], next run at: 2018-06-12 14:55:11 CEST)" (scheduled at 2018-06-12 14:55:11.577000+02:00)
+Job "printMessage (trigger: date[2018-06-12 14:55:11 CEST], next run at: 2018-06-12 14:55:11 CEST)" executed successfully
+Job "printMessageAction (trigger: date[2018-06-12 14:55:11 CEST], next run at: 2018-06-12 14:55:11 CEST)" executed successfully
+Running job "printMessageAction (trigger: date[2018-06-12 14:55:12 CEST], next run at: 2018-06-12 14:55:12 CEST)" (scheduled at 2018-06-12 14:55:12.886000+02:00)
+Job "printMessageAction (trigger: date[2018-06-12 14:55:12 CEST], next run at: 2018-06-12 14:55:12 CEST)" executed successfully
+Running job "playSoundAndOpenQuestionnaireAction (trigger: date[2018-06-12 14:55:12 CEST], next run at: 2018-06-12 14:55:12 CEST)" (scheduled at 2018-06-12 14:55:12.898000+02:00)
+Sound file named : C:\Users\evin\Documents\GitHub\mvc\media/postQuestionnaire.ogg played at 2018-06-12 14:55:12.906000
+Open questionnaire  questionnaire/post_questions.csv event sent: 2018-06-12 14:55:12.906000
+Job "playSoundAndOpenQuestionnaireAction (trigger: date[2018-06-12 14:55:12 CEST], next run at: 2018-06-12 14:55:12 CEST)" executed successfully
+Questionnaire file named : questionnaire/post_questions.csv opened at 2018-06-12 14:55:12.955000
+Scheduler stopped at 2018-06-12 14:55:16.865000
