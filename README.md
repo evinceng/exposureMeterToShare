@@ -1,20 +1,29 @@
 - If you are just going to use the exposure meter, just bother with config.ini file and ActionUnits.py file
-- If you are goning to add new sensor then you may want to look at Model.py, Sensor.py-> see the below details:
+- If you are going to add new sensor then you may want to look at Model.py, Sensor.py-> see the below details:
  "#Adding a new sensor class" and "Initialize new sensor" parts
+
+#python environment variables------------
+set environment variables if you have not done so:
+
+My Computer > Properties > Advanced System Settings > Environment Variables >
+Just add the path as C:\Python27 (or wherever you installed python) to PATH
 
 #Installed packages------------
 -Note that I installed them via conda install scripts,
 -I will provide the pip install version but note that it is not tested, you may google for that
 
-conda install -c conda-forge tk #this should be installed already in standard library
 conda install -c conda-forge bottle / pip install bottle
 conda install -c conda-forge apscheduler / pip install apscheduler
-conda install -c conda-forge pydispatcher / pip install PyDispatcher
+conda install pydispatcher / pip install PyDispatcher
 conda install -c cogsci pygame / pip install Pygame
-conda install -c conda-forge python-utils / pip install python-utils
+conda install python-utils / pip install python-utils
+conda install pymongo / pip install pymongo
 
 #MongoDB-----------------------
 -Mongodb server is running at localhost for now (Installation is available at 04-Installations folder)
+install mongo db:
+mongodb-win32-x86_64-2008plus-ssl-3.6.5-signed.msi
+
 -I personally prefer to have visual of data I have in DB, so I installed studio 3t (Installation is available at 04-Installations folder)
 -Note that some GUI for mongodb (ex:MongoDB compass) assuming all timestamps are in UTC;
  so when displaying I see a two hour difference but you can see the correct timestamp in sessionID as a string
@@ -22,8 +31,12 @@ conda install -c conda-forge python-utils / pip install python-utils
 -To start a local server open cmd, type in following commands according to the location of mongo installation
  and the folder you created in the previous step
 
-cd C:\Program Files\MongoDB\Server\3.6\bin
-mongod.exe --dbpath "C:\Users\evin\Documents\MongoDB"
+
+go to folder path: C:\Program Files\MongoDB\Server\3.6\bin 
+press Alt+D, type cmd, enter, start server by:
+mongod --config C:\Users\evin\Documents\MongoDB\mongod.conf
+
+(You will see mongod.conf in the files, put it in your local database path and edit ther dbpath with your dbpath)
 
 -Then it will start waiting connections
 
@@ -40,27 +53,31 @@ mongod.exe --dbpath "C:\Users\evin\Documents\MongoDB"
 3. Have following fields in config: Change the values according to your needs 
   (note that the keys are referred in the scripts harcoded, so please don't change them)
   
-    [SERVER]
-    IP = 127.0.0.1
-    Port = 8080
-    EmptyDataRoute = /emptyData
+[SERVER]
+IP = 127.0.0.1
+Port = 8080
+EmptyDataRoute = /emptyData
 
-    [MONGODB]
-    Host = localhost
-    Port = 27017
-    DBName = mediaExposureTry
+[MONGODB]
+Host = localhost
+Port = 27017
+DBName = mediaExposureTry
 
-    [QUESTIONNAIRE]
-    DBCollectionName = questionnaire
-    FinalAnswersCollectionName = finalAnswersQuest
+[QUESTIONNAIRE]
+DBCollectionName = questionnaire
+FinalAnswersCollectionName = finalAnswersQuest
 
-    [TOBII]
-    Url = localhost
-    Port = 10003
-    HostRoute = /tobiiEyetracker
-    IsLocalFileLogging = True
-    IsDataHasToBeParsed = False
-    DBCollectionName = tobiiQuestionnaire
+[ACTIONUNIT]
+DBCollectionName = actionUnit
+
+
+[TOBII]
+Url = localhost
+Port = 10003
+HostRoute = /tobiiEyetracker
+IsLocalFileLogging = True
+IsDataHasToBeParsed = False
+DBCollectionName = tobiiQuestionnaire
 
 
 7. Edit ActionUnit.py file according to needs(Necessary info can be found in the script file)
